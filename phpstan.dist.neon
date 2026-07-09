@@ -1,13 +1,85 @@
-includes:
-  - phpstan-baseline.neon
-
 parameters:
   phpVersion: 80200
   level: 1
   paths:
     - MDB2
-  fileExtensions:
-    - php
-  editorUrl: '%%file%%:%%line%%'
-  editorUrlTitle: '%%file%%:%%line%%'
+  editorUrl: '%%relfile%%:%%line%%'
+  editorUrlTitle: '%%relfile%%:%%line%%'
   errorFormat: table
+# Checks from higher levels that we want to include here
+# Level 2
+  checkClassCaseSensitivity: true
+  checkPhpDocMissingReturn: true
+#  checkThisOnly: false
+# Level 3
+  checkPhpDocMethodSignatures: true
+# Level 5
+  checkFunctionArgumentTypes: true
+
+  # @todo these errors should eventually be fixed
+  ignoreErrors:
+    -
+      message: '#^Method MDB2_Driver_Datatype_pgsql\:\:getTypeDeclaration\(\) should return string but return statement is missing\.$#'
+      identifier: return.missing
+      count: 1
+      path: MDB2/Driver/Datatype/pgsql.php
+
+    -
+      message: '#^Variable \$change_name might not be defined\.$#'
+      identifier: variable.undefined
+      count: 1
+      path: MDB2/Driver/Manager/pgsql.php
+
+    -
+      message: '#^Parameter \#1 \$object_or_class of function is_a expects object, int\|null given\.$#'
+      identifier: argument.type
+      count: 1
+      path: MDB2/Driver/pgsql.php
+
+    -
+      message: '#^Parameter \#1 \$result of function pg_affected_rows expects PgSql\\Result, resource\|null given\.$#'
+      identifier: argument.type
+      count: 1
+      path: MDB2/Driver/pgsql.php
+
+    -
+      message: '#^Parameter \#1 \$string of function mb_strlen expects string, int\<1, max\> given\.$#'
+      identifier: argument.type
+      count: 1
+      path: MDB2/Driver/pgsql.php
+
+    -
+      message: '#^Parameter \#1 \$value of function count expects array\|Countable, int given\.$#'
+      identifier: argument.type
+      count: 1
+      path: MDB2/Driver/pgsql.php
+
+    -
+      message: '#^Parameter \#2 \$result of method MDB2_Driver_pgsql\:\:affectedRows\(\) expects resource\|null, result given\.$#'
+      identifier: argument.type
+      count: 1
+      path: MDB2/Driver/pgsql.php
+
+    -
+      message: '#^Variable \$table might not be defined\.$#'
+      identifier: variable.undefined
+      count: 1
+      path: MDB2/Driver/pgsql.php
+
+    -
+      message: '#^Call to an undefined method MDB2_Statement_pgsql\:\:getDBInstance\(\)\.$#'
+      identifier: method.notFound
+      count: 1
+      path: MDB2/Statement/pgsql.php
+
+    -
+      message: '#^Function pgexecuteInternal not found\.$#'
+      identifier: function.notFound
+      count: 1
+      path: MDB2/Statement/pgsql.php
+
+    -
+      message: '#^Variable \$close might not be defined\.$#'
+      identifier: variable.undefined
+      count: 1
+      path: MDB2/Statement/pgsql.php
