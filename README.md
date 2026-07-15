@@ -11,4 +11,4 @@ Supports:
 - transactions
 
 This driver was previously bundled with MDB2 core. It's now split into a
-separate pacakge with MDB2 as a dependency.
+separate package with MDB2 as a dependency.
